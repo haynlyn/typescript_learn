@@ -1,29 +1,31 @@
-let hatPrice = 100;
-console.log(`Hat price: ${hatPrice}`);
-let bootsPrice = "100";
-console.log(`Boots price: ${bootsPrice}`);
+let hat = {
+	name: "Hat",
+	_price: 100,
+	priceIncTax: 100 * 1.2,
 
-let taxRate; // no tax rate has been defined
-//console.log(`Tax rate: ${taxRate || 10}%`);
-console.log(`Tax rate: ${taxRate ?? 10}%`);
-taxRate = 0; // zero-rated for tax
-//console.log(`Tax rate: ${taxRate || 10}%`);
-console.log(`Tax rate: ${taxRate ?? 10}%`);
+	set price(newPrice) {
+		this._price = newPrice;
+		this.priceIncTax = this._price * 1.2;
+	},
 
-if (hatPrice === bootsPrice) {
-	console.log("Prices are the same");
-} else {
-	console.log("Prices are different");
+	get price() {
+		return this._price;
+	}
 }
 
-let totalPrice = Number(hatPrice) + Number(bootsPrice);
-console.log(`Total Price: ${totalPrice}`);
+let boots = {
+	name: "Boots",
+	_price: "100",
 
-let myVariable = "Daniel";
-console.log(`Type: ${typeof myVariable}`);
-myVariable = 100;
-console.log(`Type: ${typeof myVariable}`);
+	get priceIncTax() {
+		return Number(this.price) * 1.2;
+	}
+}
 
-let firstCity;
-let secondCity = firstCity || "London";
-console.log(`City: ${ secondCity }`);
+console.log(`Hat: ${hat.price}, ${hat.priceIncTax}`);
+hat.price = 120;
+console.log(`Hat: ${hat.price}, ${hat.priceIncTax}`);
+
+console.log(`Boots: ${boots.price}, ${boots.priceIncTax}`);
+boots.price = 120;
+console.log(`Boots: ${boots.price}, ${boots.priceIncTax}`);
