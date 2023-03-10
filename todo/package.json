@@ -15,5 +15,8 @@
   },
   "devDependencies": {
     "@types/inquirer": "^7.3.3"
+  },
+  "volta": {
+    "extends": "/home/daniel/ts_learn/package.json"
   }
 }

@@ -11,5 +11,8 @@
   "license": "ISC",
   "dependencies": {
     "nodemon": "^2.0.7"
+  },
+  "volta": {
+    "extends": "/home/daniel/ts_learn/package.json"
   }
 }

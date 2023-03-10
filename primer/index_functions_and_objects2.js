@@ -1,34 +1,16 @@
 let myObject = {
 	greeting: "Hi, there",
-	name: "idfk",
-	amount: 100,
 
 	getWriter() {
 		return (message) => console.log(`${this.greeting}, ${message}`);
-	},
-
-	writeDetails1: () =>
-		console.log(`${this.name}, ${this.amount}`),
-
-	writeDetails2() {
-		console.log(`${this.name}, ${this.amount}`)
 	}
-		
 	/*
 	writeMessage(message) {
 		console.log(`${this.greeting}, ${message}`);
 	}
 	*/
-};
+}
 
-myObject.writeDetails1();
-myObject.writeDetails2();
-let foo = myObject.writeDetails1;
-let bar = myObject.writeDetails2;
-
-
-foo();
-bar();
 greeting = "Hello";
 
 // Here, getWriter's `this` belongs to myObject
