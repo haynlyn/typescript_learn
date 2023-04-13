@@ -1,46 +1,43 @@
-let hat = {
-	name: "Hat",
-	_price: 100,
-	priceIncTax: 100 * 1.2,
+let Product = function(name, price) {
+	this.name = name;
+	this.price = price;
+}
 
-	set price(newPrice) {
-		this._price = newPrice;
-		this.priceIncTax = this._price * 1.2;
-	},
+Product.prototype.toString = function() {
+	return `toString: Name: ${this.name}, Price: ${this.price}`;
+}
 
-	get price() {
-		return this._price;
-	},
+let TaxedProduct = function(name, price, taxRate) {
+	/* Product is a function which returns an object.
+	 * Use the `call` method on this function to create an object with
+	 * properties as specified by the params which adheres to 
+	 * Product's shape before assigning other properties.
+	 */
+	Product.call(this, name, price);
+	this.taxRate = taxRate;
+}
 
-	/*
-	writeDetails: () =>
-		console.log(`${this.name}: ${this.price}, ${this.priceIncTax}`);
-	*/
+// TaxedProduct and Product are construction functions, so you have to access
+// their prototype objects to link them, rather than the functions themselves.
+// It's still a bit confusing, but I'm looking at it differently.
+//
+// Read up on JS prototypes again.
+Object.setPrototypeOf(TaxedProduct.prototype, Product.prototype);
 
-	writeDetails: function() {
-		console.log(`${this.name}: ${this.price}, ${this.priceIncTax}`);
-	}
-};
+TaxedProduct.prototype.getPriceIncTax = function() {
+	return Number(this.price) * this.taxRate;
+}
 
-let boots = {
-	name: "Boots",
-	price: "100",
+TaxedProduct.prototype.toTaxString = function() {
+	// Same as below
+	// return `${this.toString()}, Tax: ${this.getPriceIncTax()}`;
+	let chainResult = Product.prototype.toString.call(this);
+	return `${chainResult}, Tax: ${this.getPriceIncTax()}`;
+}
 
-	get priceIncTax() {
-		return Number(this.price) * 1.2;
-	}
-};
+let hat = new TaxedProduct("Hat", 100, 1.2);
+let boots = new Product("Boots", 100);
 
-hat.writeDetails = hat.writeDetails.bind(hat);
-hat.writeDetails();
-hat.price = 120;
-hat.writeDetails();
-
-console.log(`Boots: ${boots.price}, ${boots.priceIncTax}`);
-boots.price = "120";
-console.log(`Boots: ${boots.price}, ${boots.priceIncTax}`);
-
-boots.wD = hat.writeDetails;
-boots.wD();
-boots.wD = hat.writeDetails.bind(boots);
-boots.wD();
+console.log(hat.toString());
+console.log(hat.toTaxString());
+console.log(boots.toString());
